@@ -40,6 +40,8 @@ float SamplePlayingVol = 0.2; //Sample Playing Mode Volume
 ```
 
 ### FM synth mode volume
+
+
 ``` cpp
 ...
 ...
@@ -48,6 +50,8 @@ mixer2.gain(0, 1);  //<---mixer 2 (channel 0 , gain (0.0 -1.0)
 ```
 
 ### RM synth mode volume
+
+it is better to adjust the Filter Cut Off ```RMFilterCutOff``` to adjust the volume for this mode, increase the cut off to make louder significant sound
 ``` cpp
 ...
 ...
