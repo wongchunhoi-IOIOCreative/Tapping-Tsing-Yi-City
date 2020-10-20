@@ -14,20 +14,9 @@
 
 //Audio Sample coverted file
 // to change your file name here:
-//#include "AudioSampleAteststring1.h"
-//#include "AudioSampleS16bitmonow.h"
-//#include "AudioSampleS50p16bit2w.h"
-//#include "AudioSampleS11025wa.h"
-//#include "AudioSampleWindhime.h"
-//#include "AudioSampleWindhimel.h"
-//#include "AudioSampleNewwindchime7.h"
-//#include "AudioSampleNewwindchime1.h"
-//#include "AudioSampleNewwindchime5.h"
-//#include "AudioSampleNewwindchime3.h"
 
 #include "AudioSampleShimmer.h"
 #include "AudioSampleShimmer4.h"
-
 
 
 
@@ -135,43 +124,23 @@ float tone3Amp = 0.2;
 
 //sampling playing
 bool SamplePlaying = false;  
+float SamplePlayingVol = 0.2; //Sample Playing Mode Volume
 
 
 // FM synth EDITING
-
 int toneFMMod;
 int toneFMSine;
 
-// EFFECT
-//  1 flanger
-//#define FLANGE_DELAY_LENGTH (12*AUDIO_BLOCK_SAMPLES)
-//short l_delayline[FLANGE_DELAY_LENGTH];
-//int s_idx = 3*FLANGE_DELAY_LENGTH/4;
-//int s_depth = FLANGE_DELAY_LENGTH/8;
-//double s_freq = .0625;
 
 //  2 Reverb
 float reverbRoomSize = 0.1 ;
 float reverbDamping = 0.1;
 
-/* === EFFECT FLANGER end ===*/
 
 int count = 0 ;
 int VolumeKnob;
 int sampleTriThreshold = 10;
 
-
-
-/*
-
-  int tone1 = 931;
-  int tone2 = 932;
-  int tone3 = 933;
-
-  float tone1Amp = 0.9;
-  float tone2Amp = 0.9;
-  float tone3Amp = 0.9;
-*/
 
 //369.99 466.16 622.25 554.37 739.99 830.61 932.33
 
@@ -232,7 +201,7 @@ void setup() {
 
   // Turn on amp
   AudioMemory(20);
-  dac1.analogReference(EXTERNAL); // much louder! if external
+  dac1.analogReference(INTERNAL); // much louder Volume ! if external
   delay(50);             // time for DAC voltage stable
   pinMode(PROP_AMP_ENABLE, OUTPUT);
   digitalWrite(PROP_AMP_ENABLE, HIGH); // turn on the amplifier
@@ -300,7 +269,6 @@ void loop() {
   //  pitch = filter.getPitch();
   //Serial.println("pingping");
   /*
-
     Serial.print("roll:");
     Serial.println(roll);
 
@@ -542,7 +510,7 @@ void loop() {
 
       if (intensity >= sampleTriThreshold) {
         playMem1.play(AudioSampleShimmer);  //AudioSampleAteststring1 . AudioSampleS11025wa
-        mixer1.gain(3, 0.2);    //0.3
+        mixer1.gain(3, SamplePlayingVol);    //0.3
         AudioInterrupts();
 
       }
