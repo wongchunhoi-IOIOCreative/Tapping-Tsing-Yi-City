@@ -6,7 +6,7 @@ updated 2020-10-20
 ---
 ## quick Change Sound part 
 ``` cpp
-float baseVol = 0.2;
+float baseVol = 0.2;  //<-- this is for tone mode and blip mode only
 boolean noiseEnable = false;
 float noiseAmp = 0.5;
 boolean blipEnable =  false;
@@ -22,7 +22,7 @@ float tone2Amp = 0.05;
 float tone3Amp = 0.2;
 ```
 # Volumen Adjustment
-## Base Volume
+## Base Volume (tone mode and blip mode only)
 ``` cpp
 float baseVol = 0.2;
 
