@@ -1,9 +1,66 @@
 # tapping_TeensyCode_TsingYiCity
  Tapping for Tsing Yi City
 
-updated 2020-10-09
+updated 2020-10-20
 
 ---
+## quick Change Sound part 
+``` cpp
+float baseVol = 0.2;
+boolean noiseEnable = false;
+float noiseAmp = 0.5;
+boolean blipEnable =  false;
+boolean toneEnable = false;
+boolean samplePlayerMode = false;  //<-  using
+bool FmSynth = false;   //<-Using;  
+bool RingModSynth = true;    // <-- Using
+int tone1 = 659 ;   //739
+int tone2 = 880;    //932
+int tone3 = 0;
+float tone1Amp = 0.05;
+float tone2Amp = 0.05;
+float tone3Amp = 0.2;
+```
+# Volumen Adjustment
+## Base Volume
+``` cpp
+float baseVol = 0.2;
+
+```
+
+## Volume modulated by Intensity
+  ``` cpp
+  vol = baseVol + floatMap(intensity, 0, intensityThreshold, 0.0, 1 - baseVol);
+  ```
+  
+  
+### Sample Playing Mode Volume
+``` cpp
+float SamplePlayingVol = 0.2; //Sample Playing Mode Volume
+```
+
+### FM synth mode volume
+``` cpp
+...
+...
+mixer2.gain(0, 1);  //<---mixer 2 (channel 0 , gain (0.0 -1.0)
+
+```
+
+### RM synth mode volume
+``` cpp
+...
+...
+  mixer2.gain(1, 1);  // <--mixer 2 (channel 0 , gain (0.0 -1.0)
+
+```
+
+### Boost the AMP with external reference voltage
+``` cpp
+dac1.analogReference(INTERNAL); // much louder Volume ! if external
+
+```
+
 
 ## Audio  Sample Playback 
 ### wav2sketch 
@@ -60,23 +117,7 @@ AudioSampleShimmer4
 ---
 ```
 
-## quick Change Sound part 
-``` cpp
-float baseVol = 0.2;
-boolean noiseEnable = false;
-float noiseAmp = 0.5;
-boolean blipEnable =  false;
-boolean toneEnable = false;
-boolean samplePlayerMode = false;  //<-  using
-bool FmSynth = false;   //<-Using;  
-bool RingModSynth = true;    // <-- Using
-int tone1 = 659 ;   //739
-int tone2 = 880;    //932
-int tone3 = 0;
-float tone1Amp = 0.05;
-float tone2Amp = 0.05;
-float tone3Amp = 0.2;
-```
+
 
 
 # LED Color [hardcode]
@@ -104,6 +145,10 @@ float tone3Amp = 0.2;
     
     
 ```
+---
+----
+------ Archive
+
 ### Amber (Test on 2020-07-09)
 ``` cpp
  for (int n = 0; n < NUM_LEDS; n++) {
