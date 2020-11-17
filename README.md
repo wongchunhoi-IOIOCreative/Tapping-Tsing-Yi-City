@@ -1,7 +1,7 @@
 # tapping_TeensyCode_TsingYiCity
  Tapping for Tsing Yi City
 
-updated 2020-10-20
+updated 2020-11-17
 
 ---
 ## quick Change Sound part 
@@ -61,7 +61,7 @@ it is better to adjust the Filter Cut Off ```RMFilterCutOff``` to adjust the vol
 
 ### Boost the AMP with external reference voltage
 ``` cpp
-dac1.analogReference(INTERNAL); // much louder Volume ! if external
+dac1.analogReference(EXTERNAL); // EXTERNAL is applied in the new shell
 
 ```
 
