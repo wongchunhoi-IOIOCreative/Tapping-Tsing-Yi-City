@@ -113,8 +113,8 @@ float noiseAmp = 0.5;
 boolean blipEnable =  false;
 boolean toneEnable = false;
 boolean samplePlayerMode = false;  //<-  using  [Shimmer]
-bool FmSynth = true;   //<-Using;   [FM 1 /FM2]
-bool RingModSynth = false;    // <-- Using [RM 1 RM 2 RM 3}
+bool FmSynth = false;   //<-Using;   [FM 1 /FM2]
+bool RingModSynth = true;    // <-- Using [RM 1 RM 2 RM 3}
 int tone1 = 659 ;   //739
 int tone2 = 880;    //932
 int tone3 = 0;
@@ -124,7 +124,7 @@ float tone3Amp = 0.2;
 
 //sampling playing
 bool SamplePlaying = false;  
-float SamplePlayingVol = 0.4; //Sample Playing Mode Volume
+float SamplePlayingVol = 0.8; //Sample Playing Mode Volume
 
 
 // FM synth EDITING
@@ -501,47 +501,50 @@ void loop() {
   filter2.frequency(1000);
   filter2.resonance(1.0);
   int retriggerTime = 1500;
+  int sampleNumber = 1;
 
   if (samplePlayerMode == true) {
     // mixer1.gain(3, vol);
 
-    //trigger the sample if swing
-    if (playMem1.isPlaying() == false) {
-
-      if (intensity >= sampleTriThreshold) {
-        playMem1.play(AudioSampleShimmer);  //AudioSampleAteststring1 . AudioSampleS11025wa
-        mixer1.gain(3, SamplePlayingVol);    // sample volume = 0.3
-        AudioInterrupts();
-
+    //sample #1
+    if (sampleNumber == 1) { 
+      //trigger the sample if swing
+      if (playMem1.isPlaying() == false) {
+  
+        if (intensity >= sampleTriThreshold) {
+          playMem1.play(AudioSampleShimmer);  //AudioSampleAteststring1 . AudioSampleS11025wa
+          mixer1.gain(3, SamplePlayingVol);    // sample volume = 0.3
+          AudioInterrupts();
+  
+        }
+      } else if (playMem1.isPlaying() == true) {
+        if ( (intensity >= sampleTriThreshold ) && (playMem1.positionMillis() > retriggerTime) ) {
+          mixer1.gain(3, SamplePlayingVol);   //0.3  <-- sample volume 0.3
+          playMem1.play(AudioSampleShimmer);
+        }
       }
-    } else if (playMem1.isPlaying() == true) {
-      if ( (intensity >= sampleTriThreshold ) && (playMem1.positionMillis() > retriggerTime) ) {
-        mixer1.gain(3, SamplePlayingVol);   //0.3  <-- sample volume 0.3
-        playMem1.play(AudioSampleShimmer4);
-        //            count++;
-
-        //            if (count % 2 == 0 )  {
-        //               playMem1.play(AudioSampleNewwindchime3);
-        //            delay(10);
-        //            } else {
-        //              playMem1.play(AudioSampleNewwindchime1);
-        //            }
-
-
-
-      }
+      
     }
-
-    //
-    //    if (playMem1.isPlaying() == false) {
-    //      //playMem1.play(AudioSampleAteststring1);
-    //      //playMem1.play(AudioSampleS16bitmonow);
-    //      //playMem1.play(AudioSampleS50p16bit2w);
-    //      playMem1.play(AudioSampleS11025wa);
-    //    }
-
-
-
+    //sample #2
+    if (sampleNumber == 1) { 
+      //trigger the sample if swing
+      if (playMem1.isPlaying() == false) {
+  
+        if (intensity >= sampleTriThreshold) {
+          playMem1.play(AudioSampleShimmer4);  //AudioSampleAteststring1 . AudioSampleS11025wa
+          mixer1.gain(3, SamplePlayingVol);    // sample volume = 0.3
+          AudioInterrupts();
+  
+        }
+      } else if (playMem1.isPlaying() == true) {
+        if ( (intensity >= sampleTriThreshold ) && (playMem1.positionMillis() > retriggerTime) ) {
+          mixer1.gain(3, SamplePlayingVol);   //0.3  <-- sample volume 0.3
+          playMem1.play(AudioSampleShimmer4);
+        }
+      }
+      
+    }
+    
   }
 
   /*  FN Synth    */
@@ -611,7 +614,7 @@ void loop() {
   
   if (RingModSynth == true) {
 
-  int RMTone = 3;   // 1=A5   , 2=E5   ,3=G5
+  int RMTone = 1;   // 1=A5   , 2=E5   ,3=G5
   float RMBendFreq ; 
   float RMFreq1 ;
   float RMFreq2;
@@ -625,9 +628,9 @@ void loop() {
      RMFreq1 = 114 - RMBendFreq;
      RMFreq2 = 994;
      
-     RMFilterCutOff = 600;
-     RMWave1Amp = 0.5;
-     RMWave2Amp = 0.5;
+     RMFilterCutOff = 600;  //more
+     RMWave1Amp = 0.5; //more
+     RMWave2Amp = 0.5; //more
   }
 
   //E5 Dominat 659Hz
@@ -635,18 +638,18 @@ void loop() {
      RMBendFreq = intensity / 255 * 30;
      RMFreq1 = 110 - RMBendFreq;
      RMFreq2 = 769;
-     RMFilterCutOff = 600;
-     RMWave1Amp = 0.5;
-     RMWave2Amp = 0.5;
+     RMFilterCutOff = 600;  //more
+     RMWave1Amp = 0.5; //more
+     RMWave2Amp = 0.5; //more
   }
   // G5 Dominat 783Hz
      if (RMTone == 3 ) { 
      RMBendFreq = intensity / 255 * 30;
      RMFreq1 = 98 - RMBendFreq;
      RMFreq2 = 685;
-     RMFilterCutOff = 800   ;
-      RMWave1Amp = 0.5;
-     RMWave2Amp = 0.5;
+     RMFilterCutOff = 800   ;  //more
+      RMWave1Amp = 0.5;//more
+     RMWave2Amp = 0.5; //more
   }
   
     
@@ -690,7 +693,7 @@ void loop() {
       delay(10);
     }
 
-    mixer2.gain(1, 0.6);   //volume 0.4- 0.6 in this case
+    mixer2.gain(1, 0.6);   //volume 0.4- 0.6 in this case  //more  go for 1.0
   }
 
   /* ======= Ring Mod Synt END ====== */
